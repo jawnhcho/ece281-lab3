@@ -97,7 +97,7 @@ architecture top_basys3_arch of top_basys3 is
     
     component clock_divider is
         generic ( constant k_DIV : natural := 2    ); -- How many clk cycles until slow clock toggles
-        port (  i_clk    : in std_logic;
+        port (  i_Clk    : in std_logic;
                 i_reset  : in std_logic;           -- asynchronous
                 o_clk    : out std_logic           -- divided (slow) clock
         );
@@ -109,7 +109,7 @@ begin
 	-- PORT MAPS ----------------------------------------
     thunderbird_fsm_inst : thunderbird_fsm
            port map(
-           i_clk => btnL,
+           i_clk => w_clk,
            i_reset => btnR,
            i_left => sw(15),
            i_right => sw(0),
@@ -120,7 +120,14 @@ begin
            o_lights_R(1) => led(1),
            o_lights_R(0) => led(2)
            );
-	
+           
+	clkdiv_inst : clock_divider 		--instantiation of clock_divider to take 
+           generic map ( k_DIV => 50000000 ) -- 1 Hz clock from 100 MHz
+           port map (                          
+           i_Clk   => clk,
+           i_reset => btnR,
+           o_clk   => w_clk 
+           );    
 	
 	-- CONCURRENT STATEMENTS ----------------------------
 	

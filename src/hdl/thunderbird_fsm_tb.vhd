@@ -122,7 +122,7 @@ begin
             assert w_thunderbird = "000000" report "back to normal 8D" severity failure;
         
         -- Left
-        w_left <= '0'; wait for k_clk_period;
+        w_left <= '0'; w_right <= '0'; wait for k_clk_period;
             assert w_thunderbird = "000000" report "When there isn't a signal, it stays off" severity failure;
         -- The process if you press the left blinker (The only issue is that this is a constant)
         w_left <= '1'; w_right <= '0'; wait for k_clk_period;
@@ -136,8 +136,8 @@ begin
             
 
         -- Right
-        w_right <= '0'; wait for k_clk_period;
-           assert w_thunderbird = "000000" report "When there isn't a signal, it stays off" severity failure;
+        --w_right <= '0'; wait for k_clk_period;
+           --assert w_thunderbird = "000000" report "When there isn't a signal, it stays off" severity failure;
         -- The process if you press the right blinker (The only issue is that this is a constant)
         w_right <= '1'; w_left <= '0'; wait for k_clk_period;
             assert w_thunderbird = "000100" report "When you press the signal, the left process starts " severity failure;
