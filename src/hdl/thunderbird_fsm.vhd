@@ -105,22 +105,56 @@ architecture thunderbird_fsm_arch of thunderbird_fsm is
 begin
 
 	-- CONCURRENT STATEMENTS --------------------------------------------------------	
-	f_Q_next(7) <=  (f_Q(7) or f_Q(6) or f_Q(3) or f_Q(0));
-    f_Q_next(6) <=  (f_Q(7) and i_left and i_right);
-    f_Q_next(5) <=  (f_Q(7) and i_right);
-    f_Q_next(4) <=  (f_Q(5));
-    f_Q_next(3) <=  (f_Q(4));
-    f_Q_next(2) <=  (f_Q(7) and i_left);
-    f_Q_next(1) <=  (f_Q(2));
-    f_Q_next(0) <=  (f_Q(1));
-    ---------------------------------------------------------------------------------
-	o_lights_L(2) <= (f_Q(6) or f_Q(0));
-	o_lights_L(1) <= (f_Q(6) or f_Q(1) or f_Q(0));
-	o_lights_L(0) <= (f_Q(6) or f_Q(2) or f_Q(1) or f_Q(0));
 	
-	o_lights_R(2) <= (f_Q(6) or f_Q(3));
-    o_lights_R(1) <= (f_Q(6) or f_Q(4) or f_Q(3));
-    o_lights_R(0) <= (f_Q(6) or f_Q(5) or f_Q(4) or f_Q(3));
+	f_Q_next(7) <= (f_Q(7) and not i_left and not i_right) or f_Q(6) or f_Q(3) or f_Q(0);
+	f_Q_next(6) <= (f_Q(7) and i_left and i_right);
+	f_Q_next(5) <= (f_Q(7) and not i_left and i_right);
+	f_Q_next(4) <= f_Q(5);
+    f_Q_next(3) <= f_Q(4);
+    f_Q_next(2) <= (f_Q(7) and i_left and not i_right);
+	f_Q_next(1) <= f_Q(2);
+	f_Q_next(0) <= f_Q(1);
+	
+	o_lights_L(2) <= f_Q(6) or f_Q(0);
+	o_lights_L(1) <= f_Q(6) or f_Q(1) or f_Q(0);
+	o_lights_L(0) <= f_Q(6) or f_Q(2) or f_Q(1) or f_Q(0);
+	
+	o_lights_R(2) <= f_Q(6) or f_Q(5) or f_Q(4) or f_Q(3);
+	o_lights_R(1) <= f_Q(6) or f_Q(4) or f_Q(3);
+	o_lights_R(0) <= f_Q(6) or f_Q(3);
+
+	--f_Q_next(7) <=  ((f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
+	                 --or (not f_Q(7) and f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
+	                 --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
+	                 --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and f_Q(0)));
+	                 
+    --f_Q_next(6) <=  (f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0) and i_left and i_right);
+    --f_Q_next(5) <=  (f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0) and not i_left and i_right);
+    --f_Q_next(4) <=  (not f_Q(7) and not f_Q(6) and f_Q(5) and not f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0));
+    --f_Q_next(3) <=  (not f_Q(7) and not f_Q(6) and not f_Q(5) and f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0));
+    --f_Q_next(2) <=  (f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0) and i_left and not i_right);
+    --f_Q_next(1) <=  (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and f_Q(3) and f_Q(2) and not f_Q(1) and not f_Q(0));
+    --f_Q_next(0) <=  (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and f_Q(3) and not f_Q(2) and f_Q(1) and not f_Q(0));
+    ---------------------------------------------------------------------------------
+	--o_lights_L(2) <= ((not f_Q(7) and f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
+	                  --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and f_Q(0)));
+	--o_lights_L(1) <= ((not f_Q(7) and f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0)) 
+	                  --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and f_Q(1) and not f_Q(0)) 
+	                  --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and f_Q(0)));
+	--o_lights_L(0) <= ((not f_Q(7) and f_Q(6) and not f_Q(5) and not f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0)) 
+                     --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and f_Q(1) and not f_Q(0)) 
+                     --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and f_Q(0))
+                     --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and f_Q(2) and not f_Q(1) and not f_Q(0)));
+	
+	--o_lights_R(2) <= ((not f_Q(7) and f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
+                     --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0)));
+    --o_lights_R(1) <= ((not f_Q(7) and f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
+                     --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
+                     --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0)));
+    --o_lights_R(0) <= ((not f_Q(7) and f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
+                     --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
+                     --or (not f_Q(7) and not f_Q(6) and not f_Q(5) and f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
+                     --or (not f_Q(7) and not f_Q(6) and f_Q(5) and not f_Q(4) and f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0)));
 	-- PROCESSES --------------------------------------------------------------------
 	register_proc : process (i_clk,i_reset)
     begin
