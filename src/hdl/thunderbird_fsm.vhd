@@ -119,9 +119,9 @@ begin
 	o_lights_L(1) <= f_Q(6) or f_Q(1) or f_Q(0);
 	o_lights_L(0) <= f_Q(6) or f_Q(2) or f_Q(1) or f_Q(0);
 	
-	o_lights_R(2) <= f_Q(6) or f_Q(5) or f_Q(4) or f_Q(3);
+	o_lights_R(0) <= f_Q(6) or f_Q(5) or f_Q(4) or f_Q(3);
 	o_lights_R(1) <= f_Q(6) or f_Q(4) or f_Q(3);
-	o_lights_R(0) <= f_Q(6) or f_Q(3);
+	o_lights_R(2) <= f_Q(6) or f_Q(3);
 
 	--f_Q_next(7) <=  ((f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
 	                 --or (not f_Q(7) and f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))

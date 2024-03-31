@@ -141,9 +141,9 @@ begin
            assert w_thunderbird = "000000" report "When there isn't a signal, it stays off" severity failure;
         -- The process if you press the right blinker (The only issue is that this is a constant)
         w_right <= '1'; w_left <= '0'; wait for k_clk_period;
-            assert w_thunderbird = "000100" report "When you press the signal, the left process starts " severity failure;
+            assert w_thunderbird = "000001" report "When you press the signal, the left process starts " severity failure;
             wait for k_clk_period*1;
-            assert w_thunderbird = "000110" report "When you press the signal, the left process starts " severity failure;
+            assert w_thunderbird = "000011" report "When you press the signal, the left process starts " severity failure;
             wait for k_clk_period*1;
             assert w_thunderbird = "000111" report "When you press the signal, the left process starts " severity failure;
             wait for k_clk_period*1;
