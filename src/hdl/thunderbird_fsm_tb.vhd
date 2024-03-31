@@ -146,9 +146,12 @@ begin
             assert w_thunderbird = "000110" report "When you press the signal, the left process starts " severity failure;
             wait for k_clk_period*1;
             assert w_thunderbird = "000111" report "When you press the signal, the left process starts " severity failure;
-            --wait for k_clk_period*1;
-            --assert w_thunderbird = "000000" report "When you press the signal, the left process starts " severity failure;
+            wait for k_clk_period*1;
+            assert w_thunderbird = "000000" report "When you press the signal, the left process starts " severity failure;
             
+        w_reset <= '1';
+            wait for k_clk_period*1;
+            assert w_thunderbird = "000000" report "bad reset" severity failure;            
     
         wait;
     end process;
