@@ -104,7 +104,8 @@ begin
 	-----------------------------------------------------
 	
 	-- Test Plan Process --------------------------------
-	sim_proc: process
+	-- Test Plan Process --------------------------------
+    sim_proc: process
     begin
         -- sequential timing        
         w_reset <= '1';
