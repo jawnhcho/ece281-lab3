@@ -106,6 +106,8 @@ begin
 
 	-- CONCURRENT STATEMENTS --------------------------------------------------------	
 	
+	-- The following outlines the next state conditions.
+	
 	f_Q_next(7) <= (f_Q(7) and not i_left and not i_right) or f_Q(6) or f_Q(3) or f_Q(0);
 	f_Q_next(6) <= (f_Q(7) and i_left and i_right);
 	f_Q_next(5) <= (f_Q(7) and not i_left and i_right);
@@ -114,6 +116,8 @@ begin
     f_Q_next(2) <= (f_Q(7) and i_left and not i_right);
 	f_Q_next(1) <= f_Q(2);
 	f_Q_next(0) <= f_Q(1);
+	
+	-- The following outlines the outputs using the current states
 	
 	o_lights_L(2) <= f_Q(6) or f_Q(0);
 	o_lights_L(1) <= f_Q(6) or f_Q(1) or f_Q(0);

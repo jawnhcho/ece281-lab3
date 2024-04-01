@@ -107,8 +107,10 @@ architecture top_basys3_arch of top_basys3 is
     
 begin
 
+-- The change to 12500000 creates the 4 Hz pace.
+
 	clkdiv_inst : clock_divider 		--instantiation of clock_divider to take 
-           generic map ( k_DIV => 50000000 ) -- 1 Hz clock from 100 MHz, 12500
+           generic map ( k_DIV => 12500000 ) -- 1 Hz clock from 100 MHz
            port map (                          
            i_clk   => clk,
            i_reset => btnL,
