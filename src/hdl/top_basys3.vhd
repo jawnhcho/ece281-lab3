@@ -11,8 +11,8 @@
 --| ---------------------------------------------------------------------------
 --|
 --| FILENAME      : top_basys3.vhd
---| AUTHOR(S)     : Capt Phillip Warner
---| CREATED       : 02/22/2018
+--| AUTHOR(S)     : C2C Jon Cho
+--| CREATED       : 03/31/2024
 --| DESCRIPTION   : This file implements the top level module for a BASYS 3 to 
 --|					drive a Thunderbird taillight controller FSM.
 --|
@@ -108,7 +108,7 @@ architecture top_basys3_arch of top_basys3 is
 begin
 
 	clkdiv_inst : clock_divider 		--instantiation of clock_divider to take 
-           generic map ( k_DIV => 50000000 ) -- 1 Hz clock from 100 MHz
+           generic map ( k_DIV => 50000000 ) -- 1 Hz clock from 100 MHz, 12500
            port map (                          
            i_clk   => clk,
            i_reset => btnL,

@@ -11,8 +11,8 @@
 --| ---------------------------------------------------------------------------
 --|
 --| FILENAME      : thunderbird_fsm.vhd
---| AUTHOR(S)     : Capt Phillip Warner, Capt Dan Johnson
---| CREATED       : 03/2017 Last modified 06/25/2020
+--| AUTHOR(S)     : C2C Jon Cho
+--| CREATED       : 03/2017 Last modified 03/31/2024
 --| DESCRIPTION   : This file implements the ECE 281 Lab 2 Thunderbird tail lights
 --|					FSM using enumerated types.  This was used to create the
 --|					erroneous sim for GR1
@@ -119,9 +119,12 @@ begin
 	o_lights_L(1) <= f_Q(6) or f_Q(1) or f_Q(0);
 	o_lights_L(0) <= f_Q(6) or f_Q(2) or f_Q(1) or f_Q(0);
 	
-	o_lights_R(0) <= f_Q(6) or f_Q(5) or f_Q(4) or f_Q(3);
-	o_lights_R(1) <= f_Q(6) or f_Q(4) or f_Q(3);
 	o_lights_R(2) <= f_Q(6) or f_Q(3);
+	o_lights_R(1) <= f_Q(6) or f_Q(4) or f_Q(3);
+	o_lights_R(0) <= f_Q(6) or f_Q(5) or f_Q(4) or f_Q(3);
+
+-- The following block of code is overwhelmingly dense and was left to show the difference in the processes. Additionally, it shows the trial and errors that I went through. 
+
 
 	--f_Q_next(7) <=  ((f_Q(7) and not f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))
 	                 --or (not f_Q(7) and f_Q(6) and not f_Q(5) and not f_Q(4) and not f_Q(3) and not f_Q(2) and not f_Q(1) and not f_Q(0))

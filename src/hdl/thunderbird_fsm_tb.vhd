@@ -11,8 +11,8 @@
 --| ---------------------------------------------------------------------------
 --|
 --| FILENAME      : thunderbird_fsm_tb.vhd (TEST BENCH)
---| AUTHOR(S)     : Capt Phillip Warner
---| CREATED       : 03/2017
+--| AUTHOR(S)     : C2C Jon Cho
+--| CREATED       : 03/2024
 --| DESCRIPTION   : This file tests the thunderbird_fsm modules.
 --|
 --|
@@ -71,7 +71,10 @@ architecture test_bench of thunderbird_fsm_tb is
     signal w_left : std_logic := '0';
    	signal w_right : std_logic := '0';
     
+    -- This was turned into a combined statement to better follow the prelab. However, looking back I would not do this and simply leave it as the left and right outputs.
     signal w_thunderbird : std_logic_vector(5 downto 0) := "000000"; -- Left and Right signals one-hot
+    
+  
     
 	-- constants
 	constant k_clk_period : time := 10 ns;
@@ -104,7 +107,7 @@ begin
 	-----------------------------------------------------
 	
 	-- Test Plan Process --------------------------------
-	-- Test Plan Process --------------------------------
+
     sim_proc: process
     begin
         -- sequential timing        
@@ -120,12 +123,12 @@ begin
             assert w_thunderbird = "111111" report "Hazards BBY" severity failure;
       
         w_left <= '0';w_right <= '0'; wait for k_clk_period;
-            assert w_thunderbird = "000000" report "back to normal 8D" severity failure;
+            assert w_thunderbird = "000000" report "back to normal" severity failure;
         
         -- Left
         w_left <= '0'; w_right <= '0'; wait for k_clk_period;
             assert w_thunderbird = "000000" report "When there isn't a signal, it stays off" severity failure;
-        -- The process if you press the left blinker (The only issue is that this is a constant)
+        -- The process if you press the left blinker 
         w_left <= '1'; w_right <= '0'; wait for k_clk_period;
             assert w_thunderbird = "001000" report "When you press the signal, the left process starts " severity failure;
             wait for k_clk_period*1;
@@ -139,15 +142,17 @@ begin
         -- Right
         w_right <= '0'; w_left <= '0'; wait for k_clk_period;
            assert w_thunderbird = "000000" report "When there isn't a signal, it stays off" severity failure;
-        -- The process if you press the right blinker (The only issue is that this is a constant)
+        -- The process if you press the right blinker
         w_right <= '1'; w_left <= '0'; wait for k_clk_period;
-            assert w_thunderbird = "000001" report "When you press the signal, the left process starts " severity failure;
+            assert w_thunderbird = "000001" report "When you press the signal, the right process starts " severity failure;
             wait for k_clk_period*1;
-            assert w_thunderbird = "000011" report "When you press the signal, the left process starts " severity failure;
+            assert w_thunderbird = "000011" report "When you press the signal, the right process starts " severity failure;
             wait for k_clk_period*1;
-            assert w_thunderbird = "000111" report "When you press the signal, the left process starts " severity failure;
+            assert w_thunderbird = "000111" report "When you press the signal, the right process starts " severity failure;
             wait for k_clk_period*1;
-            assert w_thunderbird = "000000" report "When you press the signal, the left process starts " severity failure;
+            assert w_thunderbird = "000000" report "When you press the signal, the right process starts " severity failure;
+        
+        -- The final reset was used to return to the original state instead of leaving it on the right for the remainder of the process.
             
         w_reset <= '1';
             wait for k_clk_period*1;
